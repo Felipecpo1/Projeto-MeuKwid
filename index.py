@@ -17,9 +17,7 @@ class App():
         self.principal.title('Meu Kwid')
         self.principal.configure(background='#004D6B')
         self.principal.geometry('980x640')
-        self.principal.resizable(True, True)
-        self.principal.maxsize(width=1200, height=800)
-        self.principal.minsize(width=600, height=400)
+        self.principal.resizable(False, False)
 
     # Definindo as divisões da tela principal
     def divisaoTela(self):
@@ -43,26 +41,20 @@ class App():
         # Botão Traseira
         self.botaTraseira = Button(self.divisao1, text='Traseira', command=lambda: self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidtras.png'))
         self.botaTraseira.place(relx=0.06, rely=0.17, relwidth=.9, relheight=.05)
-        # Botão Inferior
-        self.botaoInfeiror = Button(self.divisao1, text='Inferior')
-        self.botaoInfeiror.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
         # Botão Interno
-        self.botaoInterno = Button(self.divisao1, text='Interior')
-        self.botaoInterno.place(relx=0.06, rely=0.31, relwidth=.9, relheight=.05)
+        self.botaoInterno = Button(self.divisao1, text='Interior', command=lambda: self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png'))
+        self.botaoInterno.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
 
     # Função para exibir a imagem
     def exibirImagem(self, imagem):
         # Carrega a imagem
         self.imagem = imagem
-        imagem = Image.open(self.imagem) 
-        # Redimensiona a imagem para caber na divisao2
+        imagem = Image.open(self.imagem)
         largura, altura = 525, 392
-        imagem = imagem.resize((largura, altura), Image.ANTIALIAS)
-        # Cria um objeto de imagem Tkinter
+        imagem = imagem.resize((largura, altura))
         imagem_tk = ImageTk.PhotoImage(imagem)
-        # Cria um label para exibir a imagem
         label_imagem = Label(self.divisao2, image=imagem_tk)
-        label_imagem.image = imagem_tk  # Mantém uma referência para a imagem
+        label_imagem.image = imagem_tk 
         label_imagem.place(relx=0.12, rely=0)
 
 App()
