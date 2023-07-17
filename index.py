@@ -11,6 +11,7 @@ class App():
         self.botoesDiv1()
         principal.mainloop()
         self.exibirImagem()
+        self.listaFrente()
 
     # Aspectos da tela principal
     def tela(self):
@@ -25,11 +26,14 @@ class App():
         self.divisao1 = Frame(self.principal, bd=4, bg='#007CAD', highlightbackground='#00374D', highlightthickness=2)
         self.divisao1.place(relx=0.02, rely=0.05, relwidth=0.2, relheight=0.9)
         # Divisao 2
-        self.divisao2 = Frame(self.principal, bd=4, bg='#F0F0F0', highlightbackground='#00374D', highlightthickness=2)
+        self.divisao2 = Frame(self.principal, bd=4, bg='white', highlightbackground='#00374D', highlightthickness=2)
         self.divisao2.place(relx=0.25, rely=0.05, relwidth=0.72, relheight=0.65)
         # Divisao 3
         self.divisao3 = Frame(self.principal, bd=4, bg='white', highlightbackground='#00374D', highlightthickness=2 )
-        self.divisao3.place(relx=0.25, rely=0.71 ,relwidth=0.72, relheight=0.24)
+        self.divisao3.place(relx=0.25, rely=0.71 ,relwidth=0.415, relheight=0.24)
+        # Divisao 4
+        self.divisao4 = Frame(self.principal, bd=4, background='white', highlightbackground='#00374D', highlightthickness=2 )
+        self.divisao4.place(relx=0.67, rely=0.71, relwidth= 0.3, relheight=0.24)
     # Inserção de botões referentes a estrutura do carro na divisão 1 da tela principal
     def botoesDiv1(self):
         # Botão Frente
@@ -50,11 +54,17 @@ class App():
         # Carrega a imagem
         self.imagem = imagem
         imagem = Image.open(self.imagem)
-        largura, altura = 525, 392
+        largura, altura = 596, 335
         imagem = imagem.resize((largura, altura))
         imagem_tk = ImageTk.PhotoImage(imagem)
         label_imagem = Label(self.divisao2, image=imagem_tk)
         label_imagem.image = imagem_tk 
-        label_imagem.place(relx=0.12, rely=0)
+        label_imagem.place(relx=0.07, rely=0.1)
+        
+    # Lista de itens por parte do carro
+    def listaFrente (self, coximd, coxime):
+        self.coximd = coximd
+        self.coxime = coxime
+        
 
 App()
