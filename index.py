@@ -10,15 +10,13 @@ class App():
         self.divisaoTela()
         self.botoesDiv1()
         principal.mainloop()
+        self.botaoPress()
         self.exibirImagem()
         self.listaFrente()
-        self.acaoBotaoFrente()
         self.listaLado()
-        self.acaoBotaoLado()
         self.listaTras()
-        self.acaoBotaoTras()
         self.listaInterno()
-        self.acaoBotaoInterno()
+        self.destruirWidgets()
 
     # Aspectos da tela principal
     def tela(self):
@@ -44,47 +42,32 @@ class App():
         # Divisao 5
         self.divisao5 = Frame(self.principal, bd=4, background='white', highlightbackground='#00374D', highlightthickness=2 )
         self.divisao5.place(relx=0.67, rely=0.71, relwidth= 0.3, relheight=0.24)
+
         # Inserção de botões referentes a estrutura do carro na divisão 1 da tela principal
     def botoesDiv1(self):
         # Botão Frente
-        self.botaoFrente = Button(self.divisao1, text='Frente', command=lambda: self.acaoBotaoFrente())
+        self.botaoFrente = Button(self.divisao1, text='Frente', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png'), self.listaFrente()))
         self.botaoFrente.place(relx=0.06, rely=0.03, relwidth=.9, relheight=.05)
         # Botão Lado
-        self.botaoLado = Button(self.divisao1, text='Lateral', command=lambda: self.acaoBotaoLado())
+        self.botaoLado = Button(self.divisao1, text='Lateral', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidlado.png'), self.listaLado()))
         self.botaoLado.place(relx=0.06, rely=0.1, relwidth=.9, relheight=.05)
         # Botão Traseira
-        self.botaTraseira = Button(self.divisao1, text='Traseira', command=lambda: self.acaoBotaoTras())
+        self.botaTraseira = Button(self.divisao1, text='Traseira', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidtras.png'), self.listaTras()))
         self.botaTraseira.place(relx=0.06, rely=0.17, relwidth=.9, relheight=.05)
         # Botão Interno
-        self.botaoInterno = Button(self.divisao1, text='Interior', command=lambda: self.acaoBotaoInterno())
+        self.botaoInterno = Button(self.divisao1, text='Interior', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png'), self.listaInterno()))
         self.botaoInterno.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
     
-    # Ações do botão frente
-    def acaoBotaoFrente(self):
-        #limpando os widgets inicializados anteriormente
+    # Função ao pressionar botões
+    def botaoPress(self, imagem, lista, widg):
+        self.imagem = imagem
+        self.lista = lista
+        self.widg = widg
+    
+    # Função para destruir widgets
+    def destruirWidgets(self):
         for widget in self.divisao3.winfo_children():
             widget.destroy()
-        self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png')
-        self.listaFrente()
-    # Ações do botão lado
-    def acaoBotaoLado(self):
-        #limpando os widgets inicializados anteriormente
-        for widget in self.divisao3.winfo_children():
-            widget.destroy()
-        self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidlado.png')
-        self.listaLado()
-    # Ações botão trás 
-    def acaoBotaoTras(self):
-        for widget in self.divisao3.winfo_children():
-            widget.destroy()
-        self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidtras.png')
-        self.listaTras()
-    # Ações botão interno
-    def acaoBotaoInterno(self):
-        for widgets in self.divisao3.winfo_children():
-            widgets.destroy()
-        self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png')
-        self.listaInterno()
 
     # Função para exibir a imagem
     def exibirImagem(self, imagem):
@@ -113,7 +96,7 @@ class App():
         frente.pack()
     # Lado
     def listaLado(self):
-        itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Silencioso', 'Porta', 'Porta Traseira', 'Pneu', 'MOla', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
+        itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Silencioso', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
         lado = Listbox(self.divisao3)
         barraRolagem = Scrollbar(self.divisao3)
         barraRolagem.pack(side=RIGHT, fill=Y)
@@ -144,5 +127,4 @@ class App():
         for itens in itensInterno:
             interno.insert(END, itens)
         interno.pack()
-
 App()
