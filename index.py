@@ -12,10 +12,7 @@ class App():
         principal.mainloop()
         self.botaoPress()
         self.exibirImagem()
-        self.listaFrente()
-        self.listaLado()
-        self.listaTras()
-        self.listaInterno()
+        self.listas()
         self.destruirWidgets()
 
     # Aspectos da tela principal
@@ -46,16 +43,16 @@ class App():
         # Inserção de botões referentes a estrutura do carro na divisão 1 da tela principal
     def botoesDiv1(self):
         # Botão Frente
-        self.botaoFrente = Button(self.divisao1, text='Frente', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png'), self.listaFrente()))
+        self.botaoFrente = Button(self.divisao1, text='Frente', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png'), self.listas(frente=True, lado=False, tras=False, interno=False)))
         self.botaoFrente.place(relx=0.06, rely=0.03, relwidth=.9, relheight=.05)
         # Botão Lado
-        self.botaoLado = Button(self.divisao1, text='Lateral', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidlado.png'), self.listaLado()))
+        self.botaoLado = Button(self.divisao1, text='Lateral', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidlado.png'), self.listas(frente=False, lado=True, tras=False, interno=False)))
         self.botaoLado.place(relx=0.06, rely=0.1, relwidth=.9, relheight=.05)
         # Botão Traseira
-        self.botaTraseira = Button(self.divisao1, text='Traseira', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidtras.png'), self.listaTras()))
+        self.botaTraseira = Button(self.divisao1, text='Traseira', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidtras.png'), self.listas(frente=False, lado=False, tras=True, interno=False)))
         self.botaTraseira.place(relx=0.06, rely=0.17, relwidth=.9, relheight=.05)
         # Botão Interno
-        self.botaoInterno = Button(self.divisao1, text='Interior', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png'), self.listaInterno()))
+        self.botaoInterno = Button(self.divisao1, text='Interior', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png'), self.listas(frente=False, lado=False, tras=False, interno=True)))
         self.botaoInterno.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
     
     # Função ao pressionar botões
@@ -83,48 +80,32 @@ class App():
         
     # Lista de itens por parte do carro
     # Frente
-    def listaFrente (self):
+    def listas (self, frente, lado, tras, interno):
+        lista = Listbox(self.divisao3)
+        # Adicionando barra de rolagem a lista
+        barraRolagem = Scrollbar(self.divisao3)
+        barraRolagem.pack(side=RIGHT, fill=Y)
+        barraRolagem.config(command=lista.yview)
+        lista.config(yscrollcommand=barraRolagem.set)
         itensFrente = ['Atuador', 'Bateria', 'Bomba Dágua', 'Caixa de Marcha', 'Cabeçote', 'Cilindro Mestre', 'Coluna de Direção', 'Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Coxim Amortecedor','Cruzetas', 'Disco Embreagem', 'Embreagem', 'Fluído de Freio', 'Motor', 'Óleo Motor', 'Parachoque', 'Para-brisa', 'Platô', 'Vidro Frontal', 'Limpador de P.Brisas', 'Radiador', 'Reservatório de Água', 'Rolamento Embreagem', 'Setor de Direção', 'Servo Freio', 'Túlipa', 'Trizeta', 'Velas']
-        frente = Listbox(self.divisao3)
-        # Adcionando barra de rolagem a lista
-        barraRolagem = Scrollbar(self.divisao3)
-        barraRolagem.pack(side=RIGHT, fill=Y)
-        barraRolagem.config(command=frente.yview)
-        frente.config(yscrollcommand=barraRolagem.set)
-        for itens in itensFrente:
-            frente.insert(END, itens)
-        frente.pack()
-    # Lado
-    def listaLado(self):
         itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Silencioso', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
-        lado = Listbox(self.divisao3)
-        barraRolagem = Scrollbar(self.divisao3)
-        barraRolagem.pack(side=RIGHT, fill=Y)
-        barraRolagem.config(command=lado.yview)
-        lado.config(yscrollcommand=barraRolagem.set)
-        for itens in itensLado:
-            lado.insert(END, itens)
-        lado.pack()
-    # Traseira
-    def listaTras(self):
         itensTras = [ 'Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio']
-        tras = Listbox(self.divisao3)
-        barraRolagem = Scrollbar(self.divisao3)
-        barraRolagem.pack(side=RIGHT, fill=Y)
-        barraRolagem.config(command=tras.yview)
-        tras.config(yscrollcommand=barraRolagem.set)
-        for itens in itensTras:
-            tras.insert(END, itens)
-        tras.pack()
-    # Interno
-    def listaInterno(self):
         itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante' ]
-        interno = Listbox(self.divisao3)
-        barraRolagem = Scrollbar(self.divisao3)
-        barraRolagem.pack (side=RIGHT, fill=Y)
-        barraRolagem.config(command=interno.yview)
-        interno.config(yscrollcommand=barraRolagem.set)
-        for itens in itensInterno:
-            interno.insert(END, itens)
-        interno.pack()
+        if frente == True:
+            for itens in itensFrente:
+                lista.insert(END, itens)
+            lista.pack()
+        elif lado == True:
+            for itens in itensLado:
+                lista.insert(END, itens)
+            lista.pack()
+        elif tras == True:
+            for itens in itensTras:
+                lista.insert(END, itens)
+            lista.pack()
+        elif interno == True:
+            for itens in itensInterno:
+                lista.insert(END, itens)
+            lista.pack()
+
 App()
