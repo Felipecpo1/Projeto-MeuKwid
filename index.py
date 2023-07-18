@@ -59,7 +59,7 @@ class App():
         self.botaoInterno.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
     
     # Função ao pressionar botões
-    def botaoPress(self, imagem, lista, widg):
+    def botaoPress(self, widg, imagem, lista):
         self.imagem = imagem
         self.lista = lista
         self.widg = widg
