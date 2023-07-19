@@ -25,6 +25,7 @@ class App():
         # Divisão 1
         self.divisao1 = Frame(self.principal, bd=4, bg='#007CAD', highlightbackground='#00374D', highlightthickness=2)
         self.divisao1.place(relx=0.02, rely=0.05, relwidth=0.2, relheight=0.9)
+        
         # Divisao 2
         self.divisao2 = Frame(self.principal, bd=4, bg='white', highlightbackground='#00374D', highlightthickness=2)
         self.divisao2.place(relx=0.25, rely=0.05, relwidth=0.72, relheight=0.65)
@@ -42,18 +43,28 @@ class App():
 
         # Inserção de botões referentes a estrutura do carro na divisão 1 da tela principal
     def botoesDiv1(self):
+        # Caixa de Número e Botão para informar, armazenar e exibir a quilometragem atual do carro
+        self.kmrodado = Label(self.divisao1, text='Quilometragem do Kwid:', bg='#007CAD', fg='white')
+        self.kmrodado.place(relx=0.06, rely=0.01)
+        self.km = Entry(self.divisao1)
+        self.km.place(relx=0.06, rely=0.05, width= 100)
+        self.confKm = Button(self.divisao1, text='OK', command=self.exibirkm)
+        self.confKm.place(relx=0.62, rely=0.05, width= 64, height=21)
+        # Título do menu
+        self.menu = Label(self.divisao1, text='Partes do Carro:',font=10, fg="white", bg='#007CAD',bd=4, highlightbackground='white', highlightthickness=1, width=14)
+        self.menu.place(relx=0.06, rely=0.18)
         # Botão Frente
         self.botaoFrente = Button(self.divisao1, text='Frente', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png'), self.listas(frente=True, lado=False, tras=False, interno=False)))
-        self.botaoFrente.place(relx=0.06, rely=0.03, relwidth=.9, relheight=.05)
+        self.botaoFrente.place(relx=0.06, rely=0.27, relwidth=.9, relheight=.05)
         # Botão Lado
         self.botaoLado = Button(self.divisao1, text='Lateral', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidlado.png'), self.listas(frente=False, lado=True, tras=False, interno=False)))
-        self.botaoLado.place(relx=0.06, rely=0.1, relwidth=.9, relheight=.05)
+        self.botaoLado.place(relx=0.06, rely=0.34, relwidth=.9, relheight=.05)
         # Botão Traseira
         self.botaTraseira = Button(self.divisao1, text='Traseira', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidtras.png'), self.listas(frente=False, lado=False, tras=True, interno=False)))
-        self.botaTraseira.place(relx=0.06, rely=0.17, relwidth=.9, relheight=.05)
+        self.botaTraseira.place(relx=0.06, rely=0.41, relwidth=.9, relheight=.05)
         # Botão Interno
         self.botaoInterno = Button(self.divisao1, text='Interior', command=lambda: self.botaoPress(self.destruirWidgets(), self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png'), self.listas(frente=False, lado=False, tras=False, interno=True)))
-        self.botaoInterno.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
+        self.botaoInterno.place(relx=0.06, rely=0.48, relwidth=.9, relheight=.05)
     
     # Função ao pressionar botões
     def botaoPress(self, wid, img, lists):
@@ -186,5 +197,10 @@ class App():
                 lista.insert(END, itens)
             lista.pack()
             lista.bind("<<ListboxSelect>>", selecionarItemInterno)
-
+    
+    # Função para exibir e armazenar a quilometragem digitada no Label da divisao1
+    def exibirkm(self):
+       
+        quantQuilometro = Label(self.divisao1,font=1, fg="white", bg='#007CAD', text=self.km.get()+' KMs', bd=4, highlightbackground='white', highlightthickness=1)
+        quantQuilometro.place(relx=0.06, rely=0.10, width= 165)
 App()
