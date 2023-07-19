@@ -34,6 +34,8 @@ class App():
         # Divisao 4
         self.divisao4 = Frame(self.principal, bd=4, bg='white', highlightbackground='#00374D', highlightthickness=2)
         self.divisao4.place(relx=.405, rely=0.71, relwidth=0.26, relheight=0.24)
+        self.divisao4 = Label(self.divisao4, text="", bg='white')
+        self.divisao4.pack()
         # Divisao 5
         self.divisao5 = Frame(self.principal, bd=4, background='white', highlightbackground='#00374D', highlightthickness=2 )
         self.divisao5.place(relx=0.67, rely=0.71, relwidth= 0.3, relheight=0.24)
@@ -63,6 +65,10 @@ class App():
     def destruirWidgets(self):
         for widget in self.divisao3.winfo_children():
             widget.destroy()
+    
+    def destruirWidgets4(self):
+        for widget in self.divisao4.winfo_children():
+            widget.destroy()
 
     # Função para exibir a imagem
     def exibirImagem(self, imagem):
@@ -85,7 +91,7 @@ class App():
         barraRolagem.pack(side=RIGHT, fill=Y)
         barraRolagem.config(command=lista.yview)
         lista.config(yscrollcommand=barraRolagem.set)
-        itensFrente = ['Atuador', 'Bateria', 'Bomba Dágua', 'Caixa de Marcha', 'Cabeçote', 'Cilindro Mestre', 'Coluna de Direção', 'Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Coxim Amortecedor','Cruzetas', 'Disco Embreagem', 'Embreagem', 'Fluído de Freio', 'Motor', 'Óleo Motor', 'Parachoque', 'Para-brisa', 'Platô', 'Vidro Frontal', 'Limpador de P.Brisas', 'Radiador', 'Reservatório de Água', 'Rolamento Embreagem', 'Setor de Direção', 'Servo Freio', 'Túlipa', 'Trizeta', 'Velas']
+        itensFrente = ['Atuador', 'Bateria', 'Bomba Dágua', 'Caixa de Marcha', 'Cabeçote', 'Cilindro Mestre', 'Coluna de Direção', 'Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Cruzetas', 'Disco Embreagem', 'Embreagem', 'Fluído de Freio', 'Motor', 'Óleo Motor', 'Parachoque', 'Platô', 'Vidro Frontal', 'Limpador de P.Brisas', 'Radiador', 'Reservatório de Água', 'Rolamento Embreagem', 'Setor de Direção', 'Servo Freio', 'Túlipa', 'Trizeta', 'Velas']
         itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Silencioso', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
         itensTras = [ 'Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio']
         itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante' ]
@@ -105,5 +111,42 @@ class App():
             for itens in itensInterno:
                 lista.insert(END, itens)
             lista.pack()
+        # Evento para atribuir informções ao item selecionado na lista
+        def selecionarItem(event):
+            # Obtém o item selecionado na lista
+            itemSelecionado = lista.get(lista.curselection())
+            # Verifica os itens selecionados
+            itens100 = list(filter(lambda x: x in ['Atuador', 'Embreagem', 'Rolamento Embreagem', 'Platô', "Disco Embreagem", 'Servo Freio', 'Cilindro Mestre'], itensFrente))
+            itens50 = list(filter(lambda y: y in ["Bomba Dágua", "Túlipa", "Trizeta"], itensFrente))
+            itensIndeterminados = list(filter(lambda z: z in['Caixa de Marcha','Vidro Frontal', 'Radiador', 'Motor', 'Parachoque', 'Cabeçote','Coluna de Direção','Cruzetas','Reservatório de Água'], itensFrente))
+            itens30 = list(filter(lambda u: u in ['Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Limpador de P.Brisas'], itensFrente))
+            if itemSelecionado in itens100:
+                self.destruirWidgets4()
+                # Atualiza o texto na divisão 4
+                self.divisao4.config(text="Tempo de vida: 100 mil km")
+            elif itemSelecionado == 'Bateria' or itemSelecionado == 'Fluído de Freio':
+                self.destruirWidgets4()
+                self.divisao4.config(text='Tempo de vida: 2 anos')
+            elif itemSelecionado in itens50:
+                self.destruirWidgets4()
+                self.divisao4.config(text="Tempo de vida: 50 mil km")
+            elif itemSelecionado in itensIndeterminados:
+                self.destruirWidgets4()
+                self.divisao4.config(text="Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados")
+            elif itemSelecionado in itens30:
+                self.destruirWidgets4()
+                self.divisao4.config(text=' Tempo de vida: 30 mil km')
+            elif itemSelecionado == 'Velas':
+                self.destruirWidgets4()
+                self.divisao4.config(text=' Tempo de vida: 20 mil km')
+            elif itemSelecionado == 'Óleo Motor':
+                self.destruirWidgets4()
+                self.divisao4.config(text=' Tempo de vida: 10 mil km\n ou 6 meses de uso')
+            elif itemSelecionado == 'Setor de Direção':
+                self.destruirWidgets4()
+                self.divisao4.config(text='Faça revisões periodicamente')
+            
+            
+        lista.bind("<<ListboxSelect>>", selecionarItem)
 
 App()
