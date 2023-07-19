@@ -92,27 +92,14 @@ class App():
         barraRolagem.config(command=lista.yview)
         lista.config(yscrollcommand=barraRolagem.set)
         itensFrente = ['Atuador', 'Bateria', 'Bomba Dágua', 'Caixa de Marcha', 'Cabeçote', 'Cilindro Mestre', 'Coluna de Direção', 'Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Cruzetas', 'Disco Embreagem', 'Embreagem', 'Fluído de Freio', 'Motor', 'Óleo Motor', 'Parachoque', 'Platô', 'Vidro Frontal', 'Limpador de P.Brisas', 'Radiador', 'Reservatório de Água', 'Rolamento Embreagem', 'Setor de Direção', 'Servo Freio', 'Túlipa', 'Trizeta', 'Velas']
-        itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Silencioso', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
+
+        itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
+
         itensTras = [ 'Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio']
         itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante' ]
-        if frente == True:
-            for itens in itensFrente:
-                lista.insert(END, itens)
-            lista.pack()
-        elif lado == True:
-            for itens in itensLado:
-                lista.insert(END, itens)
-            lista.pack()
-        elif tras == True:
-            for itens in itensTras:
-                lista.insert(END, itens)
-            lista.pack()
-        elif interno == True:
-            for itens in itensInterno:
-                lista.insert(END, itens)
-            lista.pack()
-        # Evento para atribuir informções ao item selecionado na lista
-        def selecionarItem(event):
+
+        # Eventos para atribuir informções ao item selecionado na lista
+        def selecionarItemFrente (event):
             # Obtém o item selecionado na lista
             itemSelecionado = lista.get(lista.curselection())
             # Verifica os itens selecionados
@@ -145,8 +132,43 @@ class App():
             elif itemSelecionado == 'Setor de Direção':
                 self.destruirWidgets4()
                 self.divisao4.config(text='Faça revisões periodicamente')
-            
-            
-        lista.bind("<<ListboxSelect>>", selecionarItem)
+    
+        def selecionarItensLado (event):
+            itemSelecionado = lista.get(lista.curselection())
+            itens3070 = list(filter(lambda u: u in ['Amortecedor', 'Amortecedor Traseiro',], itensLado))
+            itens50 = list(filter(lambda v: v in ['Balança','Rolamento Roda'], itensLado))
+            itensIndeterminados = list(filter(lambda x: x in ['Batente', 'Coxim Amortecedor', 'Catalisador', 'Porta', 'Porta Traseira', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira'], itensLado))
+            if itemSelecionado in itens3070:
+                self.destruirWidgets4()
+                self.divisao4.config(text='Tempo de vida: de 30mil a 70mil km')
+            elif itemSelecionado in itens50:
+                self.destruirWidgets4()
+                self.divisao4.config(text = 'Tempo de vida: 50mil km')
+            elif itemSelecionado in itensIndeterminados:
+                self.destruirWidgets4()
+                self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
+            elif itemSelecionado == 'Pneu':
+                self.destruirWidgets4()
+                self.divisao4.config(text='Esse componente pode durar\n de 8 meses a 1 ano em boas condições de\n uso, sendo feitos os rodízios')  
+        
+        # Verifica qual lista será exibida ao pressionar os botões equivalentes na GUI
+        if frente == True:
+            for itens in itensFrente:
+                lista.insert(END, itens)
+            lista.pack()
+            lista.bind("<<ListboxSelect>>", selecionarItemFrente)
+        elif lado == True:
+            for itens in itensLado:
+                lista.insert(END, itens)
+            lista.pack()
+            lista.bind("<<ListboxSelect>>", selecionarItensLado)
+        elif tras == True:
+            for itens in itensTras:
+                lista.insert(END, itens)
+            lista.pack()
+        elif interno == True:
+            for itens in itensInterno:
+                lista.insert(END, itens)
+            lista.pack()
 
 App()
