@@ -140,10 +140,10 @@ class App():
             itensIndeterminados = list(filter(lambda x: x in ['Batente', 'Coxim Amortecedor', 'Catalisador', 'Porta', 'Porta Traseira', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira'], itensLado))
             if itemSelecionado in itens3070:
                 self.destruirWidgets4()
-                self.divisao4.config(text='Tempo de vida: de 30mil a 70mil km')
+                self.divisao4.config(text='Tempo de vida: de 30 mil a 70 mil km')
             elif itemSelecionado in itens50:
                 self.destruirWidgets4()
-                self.divisao4.config(text = 'Tempo de vida: 50mil km')
+                self.divisao4.config(text = 'Tempo de vida: 50 mil km')
             elif itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
                 self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
@@ -151,6 +151,20 @@ class App():
                 self.destruirWidgets4()
                 self.divisao4.config(text='Esse componente pode durar\n de 8 meses a 1 ano em boas condições de\n uso, sendo feitos os rodízios')  
         
+        def selecionarItemtras(event):
+            itemSelecionado = lista.get(lista.curselection())
+            itensIndeterminados = list(filter(lambda x: x in ['Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio'], itensTras))
+            if itemSelecionado in itensIndeterminados:
+                self.destruirWidgets4()
+                self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
+
+        def selecionarItemInterno (event):
+            itemSelecionado = lista.get(lista.curselection())
+            itensIndeterminados = list(filter(lambda x: x in ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante'], itensInterno))
+            if itemSelecionado in itensIndeterminados:
+                self.destruirWidgets4()
+                self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
+                        
         # Verifica qual lista será exibida ao pressionar os botões equivalentes na GUI
         if frente == True:
             for itens in itensFrente:
@@ -166,9 +180,11 @@ class App():
             for itens in itensTras:
                 lista.insert(END, itens)
             lista.pack()
+            lista.bind("<<ListboxSelect>>", selecionarItemtras)
         elif interno == True:
             for itens in itensInterno:
                 lista.insert(END, itens)
             lista.pack()
+            lista.bind("<<ListboxSelect>>", selecionarItemInterno)
 
 App()
