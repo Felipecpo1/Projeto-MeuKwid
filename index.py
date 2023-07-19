@@ -9,11 +9,9 @@ class App():
         self.tela()
         self.divisaoTela()
         self.botoesDiv1()
-        principal.mainloop()
-        self.botaoPress()
-        self.exibirImagem()
-        self.listas()
         self.destruirWidgets()
+        principal.mainloop()
+        
 
     # Aspectos da tela principal
     def tela(self):
@@ -56,10 +54,10 @@ class App():
         self.botaoInterno.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
     
     # Função ao pressionar botões
-    def botaoPress(self, widg, imagem, lista):
-        self.imagem = imagem
-        self.lista = lista
-        self.widg = widg
+    def botaoPress(self, wid, img, lists):
+        wid
+        img
+        lists
     
     # Função para destruir widgets
     def destruirWidgets(self):
