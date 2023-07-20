@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import messagebox
 import tkinter as tk
+
 from PIL import ImageTk, Image
 
 principal = Tk()
@@ -111,15 +113,15 @@ class App():
         itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
 
         itensTras = [ 'Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio']
-        itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante' ]
+        itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante']
 
         #lista de valores para atribuir as listas de itens e seu tempo de vida, e também para ser usado como referência para exibir o tempo de troca
-        self.valor1 = int(100000)
-        self.valor2 = int(200000)
-        self.valor3 = int(300000)
-        self.valor4 = int(500000)
-        self.valor5 = int(700000)
-        self.valor6 = int(1000000)
+        self.valor1 = int(10000)
+        self.valor2 = int(20000)
+        self.valor3 = int(30000)
+        self.valor4 = int(50000)
+        self.valor5 = int(70000)
+        self.valor6 = int(100000)
         # Eventos para atribuir informções ao item selecionado na lista
         def selecionarItemFrente (event):
             # Obtém o item selecionado na lista
@@ -218,23 +220,40 @@ class App():
         kilom.place(relx=.13, rely=.63)
         botao = Button(self.divisao4, text='Checar:', height=1, command=lambda: resultado(res=''))
         botao.place(relx=.4, rely=0.60)
+        # Função para calcular os kms para a troca do componente + um aviso se já estiver na hora de trocar o componente
         def resultado (res):
             if self.valor1:    
                 res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor1} kms rodados')    
                 res.place(relx=0.11, rely=0.77)
+                if (int(kilom.get()) + self.valor1 - int(self.km.get()) <=0):
+                    self.alerta()
             elif self.valor2:    
                 res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor2} kms rodados')    
                 res.place(relx=0.11, rely=0.77)
-            elif self.valor2:    
+                if (int(kilom.get()) + self.valor2 - int(self.km.get()) <=0):
+                    self.alerta()
+            elif self.valor3:    
+                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor3} kms rodados')    
+                res.place(relx=0.11, rely=0.77)
+                if (int(kilom.get()) + self.valor3 - int(self.km.get()) <=0):
+                    self.alerta()
+            elif self.valor4:    
                 res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor4} kms rodados')    
                 res.place(relx=0.11, rely=0.77)
-            elif self.valor2:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor4} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-            elif self.valor2:    
+                if (int(kilom.get()) + self.valor4 - int(self.km.get()) <=0):
+                    self.alerta()
+            elif self.valor5:    
                 res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor5} kms rodados')    
                 res.place(relx=0.11, rely=0.77)
-            elif self.valor2:    
+                if (int(kilom.get()) + self.valor5 - int(self.km.get()) <=0):
+                    self.alerta()
+            elif self.valor6:    
                 res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + self.valor6} kms rodados')    
                 res.place(relx=0.11, rely=0.77)
+                if (int(kilom.get()) + self.valor6 - int(self.km.get()) <=0):
+                    self.alerta()
+
+    def alerta(self):
+        messagebox.showinfo('Mensagem do Sistema','Já está na hora de trocar o componente!')
+
 App()
