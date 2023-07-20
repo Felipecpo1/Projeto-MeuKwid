@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter as tk
 from PIL import ImageTk, Image
 
 principal = Tk()
@@ -35,8 +36,6 @@ class App():
         # Divisao 4
         self.divisao4 = Frame(self.principal, bd=4, bg='white', highlightbackground='#00374D', highlightthickness=2)
         self.divisao4.place(relx=.405, rely=0.71, relwidth=0.26, relheight=0.24)
-        self.divisao4 = Label(self.divisao4, text="", bg='white')
-        self.divisao4.pack()
         # Divisao 5
         self.divisao5 = Frame(self.principal, bd=4, background='white', highlightbackground='#00374D', highlightthickness=2 )
         self.divisao5.place(relx=0.67, rely=0.71, relwidth= 0.3, relheight=0.24)
@@ -126,28 +125,28 @@ class App():
             if itemSelecionado in itens100:
                 self.destruirWidgets4()
                 # Atualiza o texto na divisão 4
-                self.divisao4.config(text="Tempo de vida: 100 mil km")
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 100 mil km", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Bateria' or itemSelecionado == 'Fluído de Freio':
                 self.destruirWidgets4()
-                self.divisao4.config(text='Tempo de vida: 2 anos')
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 2 anos', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itens50:
                 self.destruirWidgets4()
-                self.divisao4.config(text="Tempo de vida: 50 mil km")
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 50 mil km', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
-                self.divisao4.config(text="Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados")
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: indeterminado.\n Cuide do componente!", bg='white', font=('Arial', 10)))
             elif itemSelecionado in itens30:
                 self.destruirWidgets4()
-                self.divisao4.config(text=' Tempo de vida: 30 mil km')
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 30 mil km", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Velas':
                 self.destruirWidgets4()
-                self.divisao4.config(text=' Tempo de vida: 20 mil km')
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 20 mil km", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Óleo Motor':
                 self.destruirWidgets4()
-                self.divisao4.config(text=' Tempo de vida: 10 mil km\n ou 6 meses de uso')
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 10 mil km\n ou 6 meses de uso", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Setor de Direção':
                 self.destruirWidgets4()
-                self.divisao4.config(text='Faça revisões periodicamente')
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Faça revisões periodicamente", bg='white', font=('Arial', 10)))
     
         def selecionarItensLado (event):
             itemSelecionado = lista.get(lista.curselection())
@@ -156,30 +155,30 @@ class App():
             itensIndeterminados = list(filter(lambda x: x in ['Batente', 'Coxim Amortecedor', 'Catalisador', 'Porta', 'Porta Traseira', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira'], itensLado))
             if itemSelecionado in itens3070:
                 self.destruirWidgets4()
-                self.divisao4.config(text='Tempo de vida: de 30 mil a 70 mil km')
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 30 mil a 70 mil km', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itens50:
                 self.destruirWidgets4()
-                self.divisao4.config(text = 'Tempo de vida: 50 mil km')
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 50 mil km', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
-                self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: indeterminado.\n Cuide do componente!', bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Pneu':
                 self.destruirWidgets4()
-                self.divisao4.config(text='Esse componente pode durar\n de 8 meses a 1 ano em boas condições de\n uso, sendo feitos os rodízios')  
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 8 meses a 1 ano\n com rodízio', bg='white', font=('Arial', 10)))
         
         def selecionarItemtras(event):
             itemSelecionado = lista.get(lista.curselection())
             itensIndeterminados = list(filter(lambda x: x in ['Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio'], itensTras))
             if itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
-                self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: indeterminado.\n Cuide do componente!', bg='white', font=('Arial', 10)))
 
         def selecionarItemInterno (event):
             itemSelecionado = lista.get(lista.curselection())
             itensIndeterminados = list(filter(lambda x: x in ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante'], itensInterno))
             if itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
-                self.divisao4.config(text='Esse componente não possui \n tempo de vida útil determinado.\n Por favor, faça revisões e tome\n devidos cuidados')
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: indeterminado.\n Cuide do componente!', bg='white', font=('Arial', 10)))
                         
         # Verifica qual lista será exibida ao pressionar os botões equivalentes na GUI
         if frente == True:
@@ -203,9 +202,15 @@ class App():
             lista.pack()
             lista.bind("<<ListboxSelect>>", selecionarItemInterno)
     
-    # Pergunta sobre quando foi a íltima vez que o componente foi trocado?
-    def ultimaTroca(self):
-       self.pergunta = Label(self.divisao4, bg='purple', font=('Arial Black', 22), text='Quando foi feita a última troca do componente?')
-       self.pergunta.place(relx=.1, rely=0.9)
-    
+    # Pergunta sobre quando foi a íltima vez que o componente foi trocado
+    def ultimaTroca(self, tempo = Label()):
+        tempo.place(relx=0.10, rely=0.05)
+        pergunta = Label(self.divisao4, text='Em quantos km ocorreu\n a última troca?', font=('Arial', 10), bg='white')
+        pergunta.place(relx=0.11, rely=0.35)
+        km = Entry(self.divisao4, width=10, bg='light gray')
+        km.place(relx=.13, rely=.63)
+        botao = Button(self.divisao4, text='Checar:', height=1)
+        botao.place(relx=.4, rely=0.60)
+        
+
 App()
