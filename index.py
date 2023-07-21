@@ -114,14 +114,7 @@ class App():
 
         itensTras = [ 'Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio']
         itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante']
-
-        #lista de valores para atribuir as listas de itens e seu tempo de vida, e também para ser usado como referência para exibir o tempo de troca
-        self.valor1 = list(filter(lambda item: item =='Óleo Motor'), itensFrente)
-        self.valor2 = list(filter(lambda item: item =='Velas'), itensFrente) 
-        self.valor3 = list(filter(lambda item: item in['Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Limpador de P.Brisas']), itensFrente, itensLado)
-        self.valor4 = list(filter(lambda item: item in["Bomba Dágua", "Túlipa", "Trizeta", 'Balança','Rolamento Roda']), itensFrente, itensLado)
-        self.valor5 = list(filter(lambda item: item in['Amortecedor', 'Amortecedor Traseiro']),itensLado) 
-        self.valor6 = list(filter(lambda item: item in['Atuador', 'Embreagem', 'Rolamento Embreagem', 'Platô', "Disco Embreagem", 'Servo Freio', 'Cilindro Mestre']),itensFrente)
+        
         # Eventos para atribuir informções ao item selecionado na lista
         def selecionarItemFrente (event):
             # Obtém o item selecionado na lista
@@ -134,25 +127,25 @@ class App():
             if itemSelecionado in itens100:
                 self.destruirWidgets4()
                 # Atualiza o texto na divisão 4
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: {self.valor6} km", bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 100000 km", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Bateria' or itemSelecionado == 'Fluído de Freio':
                 self.destruirWidgets4()
                 self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 2 anos', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itens50:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f'Tempo de vida: {self.valor4} km', bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 50000 km', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
                 self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: indeterminado.\n Cuide do componente!", bg='white', font=('Arial', 10)))
             elif itemSelecionado in itens30:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: {self.valor3} km", bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 30000 km", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Velas':
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: {self.valor2} km", bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: 20000 km", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Óleo Motor':
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: {self.valor1} km\n ou 6 meses de uso", bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: 10000 km\n ou 6 meses de uso", bg='white', font=('Arial', 10)))
             elif itemSelecionado == 'Setor de Direção':
                 self.destruirWidgets4()
                 self.ultimaTroca(tempo=Label(self.divisao4, text="Faça revisões periodicamente", bg='white', font=('Arial', 10)))
@@ -164,10 +157,10 @@ class App():
             itensIndeterminados = list(filter(lambda x: x in ['Batente', 'Coxim Amortecedor', 'Catalisador', 'Porta', 'Porta Traseira', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira'], itensLado))
             if itemSelecionado in itens3070:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f'Tempo de vida: {self.valor5} km', bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text=f'Tempo de vida: 70000 km', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itens50:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f'Tempo de vida: {self.valor4} km', bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text=f'Tempo de vida: 50000 km', bg='white', font=('Arial', 10)))
             elif itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
                 self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: indeterminado.\n Cuide do componente!', bg='white', font=('Arial', 10)))
@@ -216,42 +209,12 @@ class App():
         tempo.place(relx=0.10, rely=0.05)
         pergunta = Label(self.divisao4, text='Em quantos km ocorreu\n a última troca?', font=('Arial', 10), bg='white')
         pergunta.place(relx=0.11, rely=0.35)
-        kilom = Entry(self.divisao4, width=10, bg='light gray')
-        kilom.place(relx=.13, rely=.63)
-        botao = Button(self.divisao4, text='Checar:', height=1, command=lambda: resultado(res=''))
+        self.kilom = Entry(self.divisao4, width=10, bg='light gray')
+        self.kilom.place(relx=.13, rely=.63)
+        botao = Button(self.divisao4, text='Checar:', height=1)
         botao.place(relx=.4, rely=0.60)
-        # Função para calcular os kms para a troca do componente + um aviso se já estiver na hora de trocar o componente
-        def resultado (res):
-            if self.valor1:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + int(10000)} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-                if (int(kilom.get()) + int(10000) - int(self.km.get()) <=0):
-                    self.alerta()
-            elif self.valor2:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + int(20000)} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-                if (int(kilom.get()) + int(20000) - int(self.km.get()) <=0):
-                    self.alerta()
-            elif self.valor3:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + int(30000)} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-                if (int(kilom.get()) + int(30000) - int(self.km.get()) <=0):
-                    self.alerta()
-            elif self.valor4:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + int(50000)} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-                if (int(kilom.get()) + int(50000) - int(self.km.get()) <=0):
-                    self.alerta()
-            elif self.valor5:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + int(70000)} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-                if (int(kilom.get()) + int(70000) - int(self.km.get()) <=0):
-                    self.alerta()
-            elif self.valor6:    
-                res = Label(self.divisao4, bg='white', text=f'A próxima troca deverá ocorrer com:\n {int(kilom.get()) + int(100000)} kms rodados')    
-                res.place(relx=0.11, rely=0.77)
-                if (int(kilom.get()) + int(100000) - int(self.km.get()) <=0):
-                    self.alerta()
+        
+        # Função para calcular os kms para a troca do componente + um aviso se já estiver na hora de trocar o component
 
     def alerta(self):
         messagebox.showinfo('Mensagem do Sistema','Já está na hora de trocar o componente!')
