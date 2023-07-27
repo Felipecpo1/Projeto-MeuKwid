@@ -108,49 +108,63 @@ class App():
         barraRolagem.pack(side=RIGHT, fill=Y)
         barraRolagem.config(command=lista.yview)
         lista.config(yscrollcommand=barraRolagem.set)
-        itensFrente = ['Atuador', 'Bateria', 'Bomba Dágua', 'Caixa de Marcha', 'Cabeçote', 'Cilindro Mestre', 'Coluna de Direção', 'Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Cruzetas', 'Disco Embreagem', 'Embreagem', 'Fluído de Freio', 'Motor', 'Óleo Motor', 'Parachoque', 'Platô', 'Vidro Frontal', 'Limpador de P.Brisas', 'Radiador', 'Reservatório de Água', 'Rolamento Embreagem', 'Setor de Direção', 'Servo Freio', 'Túlipa', 'Trizeta', 'Velas']
+        itensFrente = {'Atuador': 100000, 'Cilindro Mestre':100000,'Disco Embreagem':100000, 'Embreagem':100000,'Platô':100000,'Rolamento Embreagem':100000,'Servo Freio':100000, 'Bomba Dágua':50000,'Túlipa':50000, 'Trizeta':5000, 'Caixa de Marcha':0, 'Cabeçote':0,'Coluna de Direção':0, 'Radiador':0, 'Reservatório de Água':0,'Cruzetas':0,'Motor':0, 'Parachoque':0,'Vidro Frontal':0,'Fluído de Freio':0, 'Limpador de P.Brisas': 30000, 'Coxim Direito':30000, 'Coxim Esquerdo':30000, 'Coxim Calço':30000, 'Bateria':'Bateria', 'Óleo Motor': 'Óleo Motor', 'Setor de Direção': 'Setor', 'Velas':'Vela'}
 
-        itensLado = ['Amortecedor', 'Amortecedor Traseiro', 'Balança', 'Batente', 'Coxim Amortecedor', 'Catalizador', 'Porta', 'Porta Traseira', 'Pneu', 'Mola', 'Mola Traseira', 'Rolamento Amortecedor', 'Rolamento Roda', 'Roda', 'Vidro', 'Vidro Traseiro', 'Maçaneta', 'Maçaneta Traseira']
+        itensLado = {'Amortecedor':30000, 'Amortecedor Traseiro':30000, 'Balança':50000,'Rolamento Roda':50000, 'Batente':0, 'Coxim Amortecedor':0, 'Catalizador':0, 'Porta':0, 'Porta Traseira':0, 'Pneu':0, 'Mola':0, 'Mola Traseira':0, 'Rolamento Amortecedor':0,  'Roda':0, 'Vidro':0, 'Vidro Traseiro':0, 'Maçaneta':0, 'Maçaneta Traseira':0}
 
-        itensTras = [ 'Cano de Descarga', 'Faról', 'Lâmpada de Farol', 'Limpador de P. Brisas', 'Parachoque', 'Porta-Mala', 'Vidro', 'Luz de Freio']
-        itensInterno = ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante']
+        itensTras =  {'Cano de Descarga':0, 'Faról':0, 'Lâmpada de Farol':0, 'Limpador de P. Brisas':0, 'Parachoque':0, 'Porta-Mala':0, 'Vidro':0, 'Luz de Freio':0,}
+        itensInterno = {'Banco':0, 'Banco Traseiro':0, 'Câmbio':0, 'Maçaneta':0, 'Maçaneta Traseira':0, 'Pedal Acelerador':0, 'Pedal Embreagem':0, 'Pedal Freio':0, 'Volante':0}
         
         # Eventos para atribuir informções ao item selecionado na lista
         def selecionarItemFrente (event):
-            # Obtém o item selecionado na lista
-            itemSelecionado = lista.get(lista.curselection())
-            # Verifica os itens selecionados
-            itens100 = list(filter(lambda x: x in ['Atuador', 'Embreagem', 'Rolamento Embreagem', 'Platô', "Disco Embreagem", 'Servo Freio', 'Cilindro Mestre'], itensFrente))
-            itens50 = list(filter(lambda y: y in ["Bomba Dágua", "Túlipa", "Trizeta"], itensFrente))
-            itensIndeterminados = list(filter(lambda z: z in['Caixa de Marcha','Vidro Frontal', 'Radiador', 'Motor', 'Parachoque', 'Cabeçote','Coluna de Direção','Cruzetas','Reservatório de Água'], itensFrente))
-            itens30 = list(filter(lambda u: u in ['Coxim Direito', 'Coxim Esquerdo', 'Coxim Calço', 'Limpador de P.Brisas'], itensFrente))
-            if itemSelecionado in itens100:
+                # Obtém o índice do item selecionado na lista
+            indiceSelecionado = lista.curselection()[0]
+            # Obtém o valor correspondente ao índice obtido acima
+            valorSelecionado = itensFrente[list(itensFrente.keys())[indiceSelecionado]]
+            # Verifica se o valor obtido é igual a 100000
+            if valorSelecionado == 100000:
                 self.destruirWidgets4()
-                # Atualiza o texto na divisão 4
-                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 100000 km", bg='white', font=('Arial', 10)))
-            elif itemSelecionado == 'Bateria' or itemSelecionado == 'Fluído de Freio':
+                div4 = Label(self.divisao4, text= 'Tempo de vida: 100.000 KM', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 50000:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 2 anos', bg='white', font=('Arial', 10)))
-            elif itemSelecionado in itens50:
+                div4 = Label(self.divisao4, text= 'Tempo de vida: 50.000 KM', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 30000:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: 50000 km', bg='white', font=('Arial', 10)))
-            elif itemSelecionado in itensIndeterminados:
+                div4 = Label(self.divisao4, text= 'Tempo de vida: 30.000 KM', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 0:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: indeterminado.\n Cuide do componente!", bg='white', font=('Arial', 10)))
-            elif itemSelecionado in itens30:
+                div4 = Label(self.divisao4, text= 'Tempo de vida indeterminado.\nFaça revisões constantemente\n no componente', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 'Bateria':
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text="Tempo de vida: 30000 km", bg='white', font=('Arial', 10)))
-            elif itemSelecionado == 'Velas':
+                div4 = Label(self.divisao4, text= 'Tempo de vida: 2 anos', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 'Oleo Motor':
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: 20000 km", bg='white', font=('Arial', 10)))
-            elif itemSelecionado == 'Óleo Motor':
+                div4 = Label(self.divisao4, text= 'Tempo de vida: 10.000 KM ou \n 6 meses de uso', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 'Setor':
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text=f"Tempo de vida: 10000 km\n ou 6 meses de uso", bg='white', font=('Arial', 10)))
-            elif itemSelecionado == 'Setor de Direção':
+                div4 = Label(self.divisao4, text= 'Faça revisões no componente\n a cada 20.000 KM',bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+            elif valorSelecionado == 'Vela':
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text="Faça revisões periodicamente", bg='white', font=('Arial', 10)))
+                div4 = Label(self.divisao4, text= 'Tempo de vida: 20.000 KM', bg='white', font = ('Arial', 10))
+                div4.place(relx=.10, rely=.05)
+                self.ultimaTroca()
+
     
-        def selecionarItensLado (event):
+        '''def selecionarItensLado (event):
             itemSelecionado = lista.get(lista.curselection())
             itens3070 = list(filter(lambda u: u in ['Amortecedor', 'Amortecedor Traseiro',], itensLado))
             itens50 = list(filter(lambda v: v in ['Balança','Rolamento Roda'], itensLado))
@@ -180,7 +194,7 @@ class App():
             itensIndeterminados = list(filter(lambda x: x in ['Banco', 'Banco Traseiro', 'Câmbio', 'Maçaneta', 'Maçaneta Traseira', 'Pedal Acelerador', 'Pedal Embreagem', 'Pedal Freio', 'Volante'], itensInterno))
             if itemSelecionado in itensIndeterminados:
                 self.destruirWidgets4()
-                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: indeterminado.\n Cuide do componente!', bg='white', font=('Arial', 10)))
+                self.ultimaTroca(tempo=Label(self.divisao4, text='Tempo de vida: indeterminado.\n Cuide do componente!', bg='white', font=('Arial', 10)))'''
                         
         # Verifica qual lista será exibida ao pressionar os botões equivalentes na GUI
         if frente == True:
@@ -208,11 +222,11 @@ class App():
     def ultimaTroca(self, tempo = Label()):
         tempo.place(relx=0.10, rely=0.05)
         pergunta = Label(self.divisao4, text='Em quantos km ocorreu\n a última troca?', font=('Arial', 10), bg='white')
-        pergunta.place(relx=0.11, rely=0.35)
+        pergunta.place(relx=0.11, rely=0.40)
         self.kilom = Entry(self.divisao4, width=10, bg='light gray')
-        self.kilom.place(relx=.13, rely=.63)
+        self.kilom.place(relx=.13, rely=.68)
         botao = Button(self.divisao4, text='Checar:', height=1)
-        botao.place(relx=.4, rely=0.60)
+        botao.place(relx=.4, rely=0.65)
         
         # Função para calcular os kms para a troca do componente + um aviso se já estiver na hora de trocar o component
 
