@@ -1,2 +1,9 @@
-dic ={10000: ['atuador', 'cachorro'], 20000: 'blablabla', 30000: 'flama'}
-print(dic[10000])
+import psycopg2
+
+conn = psycopg2.connect(
+    dbname = 'meukwid',
+    user = 'postgres',
+    password = '4456',
+    host = 'localhost',
+    port = '5432'
+)

@@ -1,8 +1,20 @@
 from tkinter import *
 from tkinter import messagebox
 import tkinter as tk
-
+import psycopg2
 from PIL import ImageTk, Image
+
+#abrindo conexão com o banco de dados
+conn = psycopg2.connect(
+    dbname = 'meukwid',
+    user = 'postgres',
+    password = '4456',
+    host = 'localhost',
+    port = '5432'
+)
+
+cursor = conn.cursor()
+
 
 principal = Tk()
 
@@ -71,6 +83,11 @@ class App():
     def exibirkm(self):
         quantQuilometro = Label(self.divisao1,font=('Arial', 10), fg="white", bg='#007CAD', text=self.km.get()+' KMs', bd=4, highlightbackground='white', highlightthickness=1)
         quantQuilometro.place(relx=0.06, rely=0.11, width= 165)
+
+        #pegar a quilometragem colhida no botao da divisao1 e armazenar num banco de dados
+        quilometragem = self.km.get()
+        cursor.execute(" update quilometragem set kmrodado = %s", (quilometragem,))
+        conn.commit()
     
     # Função ao pressionar botões
     def botaoPress(self, wid, img, lists):
