@@ -88,6 +88,7 @@ class App():
         quilometragem = self.km.get()
         cursor.execute(" update quilometragem set kmrodado = %s", (quilometragem,))
         conn.commit()
+        conn.close()
     
     # Função ao pressionar botões
     def botaoPress(self, wid, img, lists):
@@ -125,7 +126,7 @@ class App():
         barraRolagem.pack(side=RIGHT, fill=Y)
         barraRolagem.config(command=lista.yview)
         lista.config(yscrollcommand=barraRolagem.set)
-        itensFrente = {'Atuador': 100000, 'Cilindro Mestre':100000,'Disco Embreagem':100000, 'Embreagem':100000,'Platô':100000,'Rolamento Embreagem':100000,'Servo Freio':100000, 'Bomba Dágua':50000,'Túlipa':50000, 'Trizeta':5000, 'Caixa de Marcha':0, 'Cabeçote':0,'Coluna de Direção':0, 'Radiador':0, 'Reservatório de Água':0,'Cruzetas':0,'Motor':0, 'Parachoque':0,'Vidro Frontal':0,'Fluído de Freio':0, 'Limpador de P.Brisas': 30000, 'Coxim Direito':30000, 'Coxim Esquerdo':30000, 'Coxim Calço':30000, 'Bateria':'Bateria', 'Óleo Motor': 'Óleo Motor', 'Setor de Direção': 'Setor', 'Velas':'Vela'}
+        itensFrente = {'Atuador': 100000, 'Cilindro Mestre':100000,'Disco Embreagem':100000, 'Embreagem':100000,'Platô':100000,'Rolamento Embreagem':100000,'Servo Freio':100000, 'Bomba Dágua':50000,'Túlipa':50000, 'Trizeta':5000, 'Caixa de Marcha':0, 'Cabeçote':0,'Coluna de Direção':0, 'Radiador':0, 'Reservatório de Água':0,'Cruzetas':0,'Motor':0, 'Parachoque':0,'Vidro Frontal':0,'Fluído de Freio':0, 'Limpador de P.Brisas': 30000, 'Coxim Direito':30000, 'Coxim Esquerdo':30000, 'Coxim Calço':30000, 'Bateria':1, 'Óleo Motor': 2, 'Setor de Direção': 3, 'Velas':4}
 
         itensLado = {'Amortecedor':30000, 'Amortecedor Traseiro':30000, 'Balança':50000,'Rolamento Roda':50000, 'Batente':0, 'Coxim Amortecedor':0, 'Catalizador':0, 'Porta':0, 'Porta Traseira':0, 'Pneu':0, 'Mola':0, 'Mola Traseira':0, 'Rolamento Amortecedor':0,  'Roda':0, 'Vidro':0, 'Vidro Traseiro':0, 'Maçaneta':0, 'Maçaneta Traseira':0}
 
@@ -138,7 +139,15 @@ class App():
             indiceSelecionado = lista.curselection()[0]
             # Obtém o valor correspondente ao índice obtido acima
             valorSelecionado = itensFrente[list(itensFrente.keys())[indiceSelecionado]]
-            # Verifica se o valor obtido é igual a 100000
+
+            #armazenando os valores das ultimas trocas das peças 
+            cursor = conn.cursor()
+            cursor.execute("create table if not exists itensFrente (nome varchar, basekm int)")
+            conn.commit()
+            for item, km in itensFrente.items():
+                cursor.execute("insert into itensFrente (nome, basekm) values (%s, %s)", (item, km))
+                conn.commit()
+
             if valorSelecionado == 100000:
                 self.destruirWidgets4()
                 div4 = Label(self.divisao4, text= 'Tempo de vida: 100.000 KM', bg='white', font = ('Arial', 10))
@@ -159,22 +168,22 @@ class App():
                 div4 = Label(self.divisao4, text= 'Tempo de vida indeterminado.\nFaça revisões constantemente\n no componente', bg='white', font = ('Arial', 10))
                 div4.place(relx=.10, rely=.05)
                 self.ultimaTroca()
-            elif valorSelecionado == 'Bateria':
+            elif valorSelecionado == 1:
                 self.destruirWidgets4()
                 div4 = Label(self.divisao4, text= 'Tempo de vida: 2 anos', bg='white', font = ('Arial', 10))
                 div4.place(relx=.10, rely=.05)
                 self.ultimaTroca()
-            elif valorSelecionado == 'Oleo Motor':
+            elif valorSelecionado == 2:
                 self.destruirWidgets4()
                 div4 = Label(self.divisao4, text= 'Tempo de vida: 10.000 KM ou \n 6 meses de uso', bg='white', font = ('Arial', 10))
                 div4.place(relx=.10, rely=.05)
                 self.ultimaTroca()
-            elif valorSelecionado == 'Setor':
+            elif valorSelecionado == 3:
                 self.destruirWidgets4()
                 div4 = Label(self.divisao4, text= 'Faça revisões no componente\n a cada 20.000 KM',bg='white', font = ('Arial', 10))
                 div4.place(relx=.10, rely=.05)
                 self.ultimaTroca()
-            elif valorSelecionado == 'Vela':
+            elif valorSelecionado == 4:
                 self.destruirWidgets4()
                 div4 = Label(self.divisao4, text= 'Tempo de vida: 20.000 KM', bg='white', font = ('Arial', 10))
                 div4.place(relx=.10, rely=.05)
@@ -240,10 +249,17 @@ class App():
         tempo.place(relx=0.10, rely=0.05)
         pergunta = Label(self.divisao4, text='Em quantos km ocorreu\n a última troca?', font=('Arial', 10), bg='white')
         pergunta.place(relx=0.11, rely=0.40)
-        self.kilom = Entry(self.divisao4, width=10, bg='light gray')
+        self.kilom = Entry(self.divisao4, width=10, bg='light gray',)
         self.kilom.place(relx=.13, rely=.68)
-        botao = Button(self.divisao4, text='Checar:', height=1)
+        botao = Button(self.divisao4, text='Checar:', height=1, command=self.checar)
         botao.place(relx=.4, rely=0.65)
+    
+    def checar(self):
+        ultimaT = self.kilom.get()
+        cursor = conn.cursor ()
+        cursor.execute("update itensfrente set ultimaT = %s", (ultimaT,))
+        conn.commit()
+        conn.close()
         
         # Função para calcular os kms para a troca do componente + um aviso se já estiver na hora de trocar o component
 
