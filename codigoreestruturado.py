@@ -17,6 +17,7 @@ class TelaPrincipal():
         self.divisoes = DivisoesTela(self.tela)
         self.tela.mainloop()
 
+# Divisões da Tela e os metódos relacionados
 class DivisoesTela():
     def __init__(self, tela):
         # Divisao 1
@@ -36,8 +37,8 @@ class DivisoesTela():
         self.divisao5.place(relx=0.67, rely=0.71, relwidth= 0.3, relheight=0.24)
         self.botoesDiv1 = self.BotoesDiv1()
 
- # Caixa de Número e Botão para informar, armazenar e exibir a quilometragem atual do carro
     def BotoesDiv1(self):
+        # Caixa de Número e Botão para informar, armazenar e exibir a quilometragem atual do carro
         self.kmrodado = Label(self.divisao1, font=('Arial', 10), text='Quilometragem do Kwid:', bg='#007CAD', fg='white',bd=4, highlightbackground='white', highlightthickness=1, width=19)
         self.kmrodado.place(relx=0.06, rely=0.01)
         self.km = Entry(self.divisao1)
@@ -67,6 +68,7 @@ class DivisoesTela():
         imagem = Image.open(self.imagem)
         largura, altura = 690, 388
         imagem = imagem.resize((largura, altura))
+        # Converter a imagem para Tkinter
         imagem_tk = ImageTk.PhotoImage(imagem)
         label_imagem = Label(self.divisao2, image=imagem_tk)
         label_imagem.place(relx=0, rely=0.015)
