@@ -35,7 +35,7 @@ class DivisoesTela():
         # Divisao 5
         self.divisao5 = Frame(tela, bd=4, background='white', highlightbackground='#00374D', highlightthickness=2 )
         self.divisao5.place(relx=0.67, rely=0.71, relwidth= 0.3, relheight=0.24)
-        self.botoesDiv1 = self.BotoesDiv1()
+        self.botoesDiv1 = self.BotoesDiv1()    
 
     def BotoesDiv1(self):
         # Caixa de Número e Botão para informar, armazenar e exibir a quilometragem atual do carro
@@ -49,7 +49,7 @@ class DivisoesTela():
         self.menu = Label(self.divisao1, text='Partes do Carro:',font=('Arial', 10), fg="white", bg='#007CAD',bd=4, highlightbackground='white', highlightthickness=1, width=19)
         self.menu.place(relx=0.06, rely=0.17)
         # Botão Frente
-        self.botaoFrente = Button(self.divisao1, font=('Arial', 10), text='Frente', command= lambda: self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png'))
+        self.botaoFrente = Button(self.divisao1, font=('Arial', 10), text='Frente', command= lambda: self.botaoPress(self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidfrente.png'), self.exibirLista()))
         self.botaoFrente.place(relx=0.06, rely=0.24, relwidth=.9, relheight=.05)
         # Botão Lado
         self.botaoLado = Button(self.divisao1, font=('Arial', 10), text='Lateral', command= lambda: self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidlado.png'))
@@ -60,6 +60,20 @@ class DivisoesTela():
         # Botão Interno
         self.botaoInterno = Button(self.divisao1, font=('Arial', 10), text= 'Interno', command= lambda: self.exibirImagem('C:/Users/flame/OneDrive/Área de Trabalho/Cursos/Meus Projetos/Meu Kwid/Projeto-MeuKwid/imagens/kwidinterno.png'))
         self.botaoInterno.place(relx=0.06, rely=0.45, relwidth=.9, relheight=.05)
+
+    def botaoPress(self, img, lista):
+        self.img = img
+        self.lista = lista
+        
+    
+    def exibirLista(self, frente, lado, tras, interno):
+        self.frente = frente
+        self.lado = lado
+        self.tras = tras
+        self.interno = interno
+        lista = Lista()
+        frente = lista.frente
+        
 
         # Função para exibir a imagem
     def exibirImagem(self, imagem):
@@ -73,6 +87,17 @@ class DivisoesTela():
         label_imagem = Label(self.divisao2, image=imagem_tk)
         label_imagem.place(relx=0, rely=0.015)
         label_imagem.image = imagem_tk 
-       
 
+class Lista():
+    def __init__(self):
+        lista = Listbox(div3)
+        barraRolagem = Scrollbar(div3)
+        barraRolagem.pack(side=RIGHT, fill=Y)
+        barraRolagem.config(command=lista.yview)
+        lista.config(yscrollcommand=barraRolagem.set)
+        divisoesTela = DivisoesTela()
+        div3 = divisoesTela.divisao3
+        self.frente = frente
+        frente = {'Atuador': 100000, 'Cilindro Mestre':100000,'Disco Embreagem':100000, 'Embreagem':100000,'Platô':100000,'Rolamento Embreagem':100000,'Servo Freio':100000, 'Bomba Dágua':50000,'Túlipa':50000, 'Trizeta':5000, 'Caixa de Marcha':0, 'Cabeçote':0,'Coluna de Direção':0, 'Radiador':0, 'Reservatório de Água':0,'Cruzetas':0,'Motor':0, 'Parachoque':0,'Vidro Frontal':0,'Fluído de Freio':0, 'Limpador de P.Brisas': 30000, 'Coxim Direito':30000, 'Coxim Esquerdo':30000, 'Coxim Calço':30000, 'Bateria':1, 'Óleo Motor': 2, 'Setor de Direção': 3, 'Velas':4}
+    
 MeuKwid()
